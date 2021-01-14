@@ -1,21 +1,18 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
-import ProductContainer from './screens/products/ProductContainer';
 import Header from './shared/Header';
-
+import { NavigationContainer } from '@react-navigation/native';
+//Navigators
+import Main from './navigators/Main';
+//redux
+import { Provider } from 'react-redux';
+import store from './redux/store';
 export default function App() {
   return (
-    <View>
-      <Header />
-      <ProductContainer />
-    </View>
+    <Provider store={store}>
+      <NavigationContainer>
+        <Header />
+        <Main />
+      </NavigationContainer>
+    </Provider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
