@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button } from 'react-native';
+import { Button, Dimensions } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {
   Text,
@@ -15,7 +15,7 @@ import {
   Title,
   Header,
 } from 'native-base';
-
+let { width } = Dimensions.get('window');
 const Payment = (props) => {
   const methods = [
     { name: 'Cash On Delivery', value: 1 },
@@ -74,8 +74,11 @@ const Payment = (props) => {
         ) : null}
         <View style={{ marginTop: 60, alignSelf: 'center' }}>
           <Button
+            style={{ flex: 1, width: width }}
             title={'Confirm'}
-            onPress={() => props.navigation.navigate('Confirm', { order })}
+            onPress={() =>
+              props.navigation.navigate('Confirm', { order: order })
+            }
           />
         </View>
       </Content>

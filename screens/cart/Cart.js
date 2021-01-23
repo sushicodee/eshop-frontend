@@ -1,29 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { connect } from 'react-redux';
-import {
-  View,
-  Dimensions,
-  StyleSheet,
-  Button,
-  TouchableOpacity,
-} from 'react-native';
-import {
-  Container,
-  Text,
-  Right,
-  H1,
-  ListItem,
-  Thumbnail,
-  Body,
-  Left,
-} from 'native-base';
+import { View, Dimensions, StyleSheet, TouchableOpacity } from 'react-native';
+import { Container, Text, Right, H1, Left } from 'native-base';
 import { SwipeListView } from 'react-native-swipe-list-view';
 import Icons from 'react-native-vector-icons/FontAwesome';
 import * as actions from './../../redux/actions/cartActions';
 import CartItem from './CartItem';
+import StyledButton from '../../shared/styledComponents/StyledButton';
+import AuthGlobal from './../../context/store/AuthGlobal';
 let { height, width } = Dimensions.get('window');
 
 export const Cart = (props) => {
+  const context = useContext(AuthGlobal);
+
   var total = 0;
   props.cartItems.forEach((data) => {
     return (total += data.product.price);
@@ -62,13 +51,30 @@ export const Cart = (props) => {
               <Text style={styles.price}>${total}</Text>
             </Left>
             <Right>
-              <Button title='Clear' onPress={() => props.clearCart()} />
+              <StyledButton danger medium onPress={() => props.clearCart()}>
+                <Text style={{ color: 'white' }}>Clear</Text>
+              </StyledButton>
             </Right>
             <Right>
-              <Button
-                title='Checkout'
-                onPress={() => props.navigation.navigate('Checkout')}
-              />
+              {context.stateUser.isAuthenticated ? (
+                <StyledButton
+                  medium
+                  secondary
+                  onPress={() => props.navigation.navigate('Checkout')}
+                >
+                  <Text style={{ color: 'white' }}>Checkout</Text>
+                </StyledButton>
+              ) : (
+                <StyledButton
+                  secondary
+                  medium
+                  onPres={() => {
+                    props.navigation.navigate('Login');
+                  }}
+                >
+                  <Text>Login</Text>
+                </StyledButton>
+              )}
             </Right>
           </View>
         </Container>
@@ -114,7 +120,7 @@ const styles = StyleSheet.create({
   price: {
     fontSize: 18,
     margin: 20,
-    color: 'red',
+    color: '#5cb85c',
   },
   hiddenContainer: {
     flex: 1,

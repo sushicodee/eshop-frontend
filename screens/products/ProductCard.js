@@ -9,6 +9,8 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import * as actions from './../../redux/actions/cartActions';
+import Toast from 'react-native-toast-message';
+import StyledButton from '../../shared/styledComponents/StyledButton';
 let { width } = Dimensions.get('window');
 
 const ProductCard = (props) => {
@@ -31,13 +33,23 @@ const ProductCard = (props) => {
       <Text style={styles.price}>${price}</Text>
       {countInStock > 0 ? (
         <View style={{ marginBottom: 60 }}>
-          <Button
-            color='green'
-            title='Add'
+          <StyledButton
+            primary
+            medium
             onPress={() => {
-              props.addItemToCart(props);
+              {
+                props.addItemToCart(props),
+                  Toast.show({
+                    topOffset: 60,
+                    type: 'success',
+                    text1: `${name} added to Cart`,
+                    text2: 'Go to your cart to complete order',
+                  });
+              }
             }}
-          />
+          >
+            <Text style={{ color: 'white' }}>Add to Cart</Text>
+          </StyledButton>
         </View>
       ) : (
         <Text styles={{ marginTop: 20 }}>Currently unavaliable</Text>

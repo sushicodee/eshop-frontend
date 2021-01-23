@@ -1,0 +1,6 @@
+export const UPDATE_ORDER = 'UPDATE_ORDER';
+export const FETCH_ORDERS = 'FETCH_ORDERS';
+export const FETCH_ORDERS_ERROR = 'FETCH_ORDERS_ERROR';
+export const UPDATE_ORDER_ERROR = 'UPDATE_ORDER_ERROR';
+export const SET_LOADING = 'SET_LOADING';
+export const CLEAR_ERRORS = 'CLEAR_ERRORS';

@@ -14,7 +14,7 @@ const ProductList = (props) => {
       <View
         style={{
           width: width / 2,
-          backgroundColor: 'gainsboro',
+          backgroundColor: '#007CC7',
         }}
       >
         <ProductCard {...item} />
